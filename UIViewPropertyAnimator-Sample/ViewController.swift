@@ -18,12 +18,11 @@ final class ViewController: UIViewController {
     }
 
     @IBAction func action(_ sender: UIButton) {
-        let entPointY = animationView.center.y + 200
+        let entPointY = animationView.center.y + 300
         let animator = UIViewPropertyAnimator(duration: 2.0,
-                                              controlPoint1: CGPoint(x: 0.1, y: 1.0),
-                                              controlPoint2: CGPoint(x: 0.2, y: 0.1),
+                                              dampingRatio: 0.2,
                                               animations: {
-                                               self.animationView.center.y = entPointY
+                                                self.animationView.center.y = entPointY
         })
         animator.startAnimation()
     }
@@ -41,6 +40,16 @@ final class ViewController: UIViewController {
         let animator = UIViewPropertyAnimator(duration: 2.0,
                                               controlPoint1: CGPoint(x: 0.1, y: 1.0),
                                               controlPoint2: CGPoint(x: 0.2, y: 0.1),
+                                              animations: {
+                                                self.animationView.center.y = entPointY
+        })
+        animator.startAnimation()
+    }
+
+    func バネのようなスプリント属性を持たせる移動() {
+        let entPointY = animationView.center.y + 300
+        let animator = UIViewPropertyAnimator(duration: 2.0,
+                                              dampingRatio: 0.2,
                                               animations: {
                                                 self.animationView.center.y = entPointY
         })
