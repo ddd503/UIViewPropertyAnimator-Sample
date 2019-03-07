@@ -11,20 +11,30 @@ import UIKit
 final class ViewController: UIViewController {
 
     @IBOutlet weak var animationView: UIView!
+    var animator: UIViewPropertyAnimator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setup()
     }
 
     @IBAction func action(_ sender: UIButton) {
-        let entPointY = animationView.center.y + 300
-        let animator = UIViewPropertyAnimator(duration: 2.0,
-                                              dampingRatio: 0.2,
-                                              animations: {
-                                                self.animationView.center.y = entPointY
-        })
-        animator.startAnimation()
+
+    }
+
+    @IBAction func slide(_ sender: UISlider) {
+
+    }
+
+    private func setup() {
+        setupAnimator()
+    }
+
+    private func setupAnimator() {
+        let entPointY = animationView.center.y + 200
+        animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
+            self.animationView.center.y = entPointY
+        }
     }
 
     func 単純な横移動() {
@@ -56,4 +66,9 @@ final class ViewController: UIViewController {
         animator.startAnimation()
     }
 
+    func sliderで進行度をコントロールできる(float: Float) {
+        // 事前にsetupAnimatorを読んでおく
+        self.animator?.fractionComplete = CGFloat(float)
+    }
+    
 }
