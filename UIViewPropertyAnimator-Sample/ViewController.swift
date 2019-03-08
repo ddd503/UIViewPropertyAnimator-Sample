@@ -83,4 +83,16 @@ final class ViewController: UIViewController {
         self.animator?.fractionComplete = CGFloat(float)
     }
 
+    func アニメーションを追加する() {
+        let entPointY = animationView.center.y + 200
+        let animator = UIViewPropertyAnimator(duration: 2.0, curve: .easeIn) {
+            self.animationView.center.y = entPointY
+        }
+        // アニメーションの追加（開始は一緒）
+        animator.addAnimations {
+            self.animationView.alpha = 0.0
+        }
+        animator.startAnimation()
+    }
+
 }
