@@ -37,6 +37,14 @@ final class ViewController: UIViewController {
         }
     }
 
+    private func setupAndStartAnimator() {
+        let entPointY = animationView.center.y + 200
+        animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
+            self.animationView.center.y = entPointY
+        }
+        animator?.startAnimation()
+    }
+
     func 単純な横移動() {
         let endPointX = animationView.center.x + 50
         let animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
@@ -66,9 +74,13 @@ final class ViewController: UIViewController {
         animator.startAnimation()
     }
 
+    func 進行中のanimationを逆再生したい時() {
+        animator?.isReversed = animator?.isReversed ?? true ? false : true
+    }
+
     func sliderで進行度をコントロールできる(float: Float) {
         // 事前にsetupAnimatorを読んでおく
         self.animator?.fractionComplete = CGFloat(float)
     }
-    
+
 }
