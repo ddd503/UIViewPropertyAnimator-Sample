@@ -14,8 +14,8 @@ enum AnimationType: String, CaseIterable {
     case spring = "バネのような移動"
     case reversed = "移動中の逆再生"
     case slider = "スライダーで移動状態を調節"
-    case add = "アニメーションをさらに追加"
-    case addDelay = "遅延実行するアニメーションを追加"
+    case add = "薄くなっていくアニメーション"
+    case addDelay = "最後の方に薄くなっていくアニメーション"
 }
 
 final class MenuViewController: UIViewController {
