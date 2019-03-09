@@ -84,12 +84,26 @@
                                     <action selector="slide:" destination="BYZ-38-t0r" eventType="valueChanged" id="5Ii-FJ-ahl"/>
                                 </connections>
                             </slider>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QO0-ei-hdB">
+                                <rect key="frame" x="273.5" y="473" width="72" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="4Lo-UP-YO6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Reversed"/>
+                                <connections>
+                                    <action selector="reverse:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bB1-3t-DOC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mEV-X6-37Z" firstAttribute="top" secondItem="F8g-aN-bHU" secondAttribute="bottom" constant="50" id="4en-93-Oy8"/>
+                            <constraint firstItem="QO0-ei-hdB" firstAttribute="centerY" secondItem="F8g-aN-bHU" secondAttribute="centerY" id="5eK-KP-7WD"/>
+                            <constraint firstItem="QO0-ei-hdB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="F8g-aN-bHU" secondAttribute="trailing" constant="8" symbolic="YES" id="8gE-oU-BdP"/>
                             <constraint firstItem="MDr-EQ-wwL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.6" id="DXg-F2-nJ8"/>
                             <constraint firstItem="MDr-EQ-wwL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FCU-ez-jxf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QO0-ei-hdB" secondAttribute="trailing" constant="29.5" id="IHG-Mw-UvJ"/>
                             <constraint firstItem="F8g-aN-bHU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Nb2-C1-qC3"/>
                             <constraint firstItem="F8g-aN-bHU" firstAttribute="top" secondItem="MDr-EQ-wwL" secondAttribute="bottom" constant="200" id="OPl-Ze-yGm"/>
                             <constraint firstItem="mEV-X6-37Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64" id="gNX-W4-dR0"/>
@@ -100,6 +114,7 @@
                     <connections>
                         <outlet property="animationView" destination="MDr-EQ-wwL" id="gzM-T3-NfH"/>
                         <outlet property="button" destination="F8g-aN-bHU" id="Hlk-Qz-F6K"/>
+                        <outlet property="reverseButton" destination="QO0-ei-hdB" id="ETU-Rs-r9E"/>
                         <outlet property="slider" destination="mEV-X6-37Z" id="2Oe-TZ-fDt"/>
                     </connections>
                 </viewController>

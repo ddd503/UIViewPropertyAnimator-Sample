@@ -13,6 +13,7 @@ final class AnimationViewController: UIViewController {
     @IBOutlet private weak var animationView: UIView!
     @IBOutlet private weak var button: UIButton!
     @IBOutlet private weak var slider: UISlider!
+    @IBOutlet private weak var reverseButton: UIButton!
 
     var animator: UIViewPropertyAnimator?
     var basePostion: CGPoint = .zero
@@ -37,7 +38,11 @@ final class AnimationViewController: UIViewController {
 
     @IBAction func action(_ sender: UIButton) {
         triggerAction()
-        resetPosition()
+        reset()
+    }
+
+    @IBAction func reverse(_ sender: UIButton) {
+        進行中のanimationを途中で逆再生したい時()
     }
 
     @IBAction func slide(_ sender: UISlider) {
@@ -46,7 +51,9 @@ final class AnimationViewController: UIViewController {
 
     private func setup() {
         button.isHidden = currentAnimationType == .slider
-        slider.isHidden = !(currentAnimationType == .slider)
+        slider.isHidden = currentAnimationType != .slider
+        reverseButton.isHidden = currentAnimationType != .reversed
+
         basePostion = animationView.center
         basePostion.y = basePostion.y + 64
         setupAnimator()
@@ -61,7 +68,8 @@ final class AnimationViewController: UIViewController {
         case .spring:
             バネのようなスプリント属性を持たせる移動()
         case .reversed:
-            進行中のanimationを逆再生したい時()
+            setupAnimator()
+            animator?.startAnimation()
         case .add:
             アニメーションを追加する()
         case .addDelay:
@@ -76,12 +84,13 @@ final class AnimationViewController: UIViewController {
         }
     }
 
-    private func resetPosition() {
+    private func reset() {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration + 1.0) { [weak self] in
             guard let self = self else { return }
             self.animationView.center = self.basePostion
             self.animationView.backgroundColor = .blue
             self.animationView.alpha = 1.0
+            self.animator?.isReversed = false
         }
     }
 
@@ -111,8 +120,8 @@ final class AnimationViewController: UIViewController {
         animator.startAnimation()
     }
 
-    func 進行中のanimationを逆再生したい時() {
-        animator?.isReversed = animator?.isReversed ?? true ? false : true
+    func 進行中のanimationを途中で逆再生したい時() {
+        animator?.isReversed = animator?.isReversed ?? false ? false : true
     }
 
     func sliderで進行度をコントロールできる(float: Float) {
