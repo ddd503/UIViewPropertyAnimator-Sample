@@ -55,7 +55,6 @@ final class AnimationViewController: UIViewController {
         reverseButton.isHidden = currentAnimationType != .reversed
 
         basePostion = animationView.center
-//        basePostion.y = basePostion.y + 64
         setupAnimator()
     }
 
