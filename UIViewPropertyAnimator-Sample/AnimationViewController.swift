@@ -10,13 +10,17 @@ import UIKit
 
 final class AnimationViewController: UIViewController {
 
-    @IBOutlet weak var animationView: UIView!
+    @IBOutlet private weak var animationView: UIView!
+    @IBOutlet private weak var button: UIButton!
+    @IBOutlet private weak var slider: UISlider!
+
     var animator: UIViewPropertyAnimator?
     var basePostion: CGPoint = .zero
     var currentAnimationType = AnimationType.move
     lazy var endPointY = {
         return self.animationView.center.y + 200
     }
+    let duration: TimeInterval = 2.0
 
     class func make(type: AnimationType) -> AnimationViewController {
         guard let animationVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AnimationViewController") as? AnimationViewController else {
@@ -32,7 +36,8 @@ final class AnimationViewController: UIViewController {
     }
 
     @IBAction func action(_ sender: UIButton) {
-
+        triggerAction()
+        resetPosition()
     }
 
     @IBAction func slide(_ sender: UISlider) {
@@ -40,49 +45,68 @@ final class AnimationViewController: UIViewController {
     }
 
     private func setup() {
+        button.isHidden = currentAnimationType == .slider
+        slider.isHidden = !(currentAnimationType == .slider)
         basePostion = animationView.center
+        basePostion.y = basePostion.y + 64
         setupAnimator()
     }
 
+    private func triggerAction() {
+        switch currentAnimationType {
+        case .move:
+            単純な移動()
+        case .bezierCurve:
+            ベジェ曲線で緩急をつける横移動()
+        case .spring:
+            バネのようなスプリント属性を持たせる移動()
+        case .reversed:
+            進行中のanimationを逆再生したい時()
+        case .add:
+            アニメーションを追加する()
+        case .addDelay:
+            遅延実行するアニメーションを追加する()
+        default: break
+        }
+    }
+
     private func setupAnimator() {
-        animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
+        animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) {
             self.animationView.center.y = self.endPointY()
         }
     }
 
-    private func setupAndStartAnimator() {
-        let entPointY = animationView.center.y + 200
-        animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
-            self.animationView.center.y = entPointY
+    private func resetPosition() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration + 1.0) { [weak self] in
+            guard let self = self else { return }
+            self.animationView.center = self.basePostion
+            self.animationView.backgroundColor = .blue
+            self.animationView.alpha = 1.0
         }
-        animator?.startAnimation()
     }
 
-    func 単純な横移動() {
-        let endPointX = animationView.center.x + 50
-        let animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
-            self.animationView.center.x = endPointX
+    func 単純な移動() {
+        let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) {
+            self.animationView.center.y = self.endPointY()
         }
         animator.startAnimation()
     }
 
     func ベジェ曲線で緩急をつける横移動() {
-        let entPointY = animationView.center.y + 200
-        let animator = UIViewPropertyAnimator(duration: 2.0,
+        let animator = UIViewPropertyAnimator(duration: duration,
                                               controlPoint1: CGPoint(x: 0.1, y: 1.0),
                                               controlPoint2: CGPoint(x: 0.2, y: 0.1),
                                               animations: {
-                                                self.animationView.center.y = entPointY
+                                                self.animationView.center.y = self.endPointY()
         })
         animator.startAnimation()
     }
 
     func バネのようなスプリント属性を持たせる移動() {
-        let entPointY = animationView.center.y + 300
-        let animator = UIViewPropertyAnimator(duration: 2.0,
+        let animator = UIViewPropertyAnimator(duration: duration,
                                               dampingRatio: 0.2,
                                               animations: {
-                                                self.animationView.center.y = entPointY
+                                                self.animationView.center.y = self.endPointY()
         })
         animator.startAnimation()
     }
@@ -97,9 +121,8 @@ final class AnimationViewController: UIViewController {
     }
 
     func アニメーションを追加する() {
-        let entPointY = animationView.center.y + 200
-        let animator = UIViewPropertyAnimator(duration: 2.0, curve: .easeIn) {
-            self.animationView.center.y = entPointY
+        let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) {
+            self.animationView.center.y = self.endPointY()
         }
         // アニメーションの追加（開始は一緒）
         animator.addAnimations {
@@ -109,9 +132,8 @@ final class AnimationViewController: UIViewController {
     }
 
     func 遅延実行するアニメーションを追加する() {
-        let entPointY = animationView.center.y + 200
-        let animator = UIViewPropertyAnimator(duration: 2.0, curve: .easeIn) {
-            self.animationView.center.y = entPointY
+        let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) {
+            self.animationView.center.y = self.endPointY()
         }
         // アニメーションを追加（90%の時点で発火する遅延実行）
         animator.addAnimations({
@@ -121,13 +143,12 @@ final class AnimationViewController: UIViewController {
     }
 
     func アニメーション完了後処理を追加する() {
-        let entPointY = animationView.center.y + 200
-        let animator = UIViewPropertyAnimator(duration: 2.0, curve: .easeIn) {
-            self.animationView.center.y = entPointY
+        let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) {
+            self.animationView.center.y = self.endPointY()
         }
         // 完了後の処理を追加
         animator.addCompletion { (_) in
-            self.animationView.center.y = self.animationView.center.y - 200
+            self.animationView.backgroundColor = .red
         }
         animator.startAnimation()
     }

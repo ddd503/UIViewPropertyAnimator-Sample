@@ -9,7 +9,7 @@
 import UIKit
 
 enum AnimationType: String, CaseIterable {
-    case move = "単純な横移動"
+    case move = "単純な移動"
     case bezierCurve = "ベジェ曲線移動"
     case spring = "バネのような移動"
     case reversed = "移動中の逆再生"

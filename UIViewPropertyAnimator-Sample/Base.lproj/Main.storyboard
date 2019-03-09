@@ -60,24 +60,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDr-EQ-wwL">
-                                <rect key="frame" x="137.5" y="117" width="100" height="100"/>
-                                <color key="backgroundColor" red="0.49711733759999999" green="0.80505953500000005" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="127.5" y="140" width="120" height="120"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="3N7-PP-eEx"/>
-                                    <constraint firstAttribute="height" constant="100" id="4pV-hH-Ymg"/>
+                                    <constraint firstAttribute="width" constant="120" id="3N7-PP-eEx"/>
+                                    <constraint firstAttribute="height" constant="120" id="4pV-hH-Ymg"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8g-aN-bHU">
-                                <rect key="frame" x="164" y="332" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8g-aN-bHU">
+                                <rect key="frame" x="141.5" y="460" width="92" height="66"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g1U-wE-vLh"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mEV-X6-37Z">
-                                <rect key="frame" x="62" y="412" width="251" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mEV-X6-37Z">
+                                <rect key="frame" x="62" y="576" width="251" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="RYj-UW-KhH"/>
+                                </constraints>
                                 <connections>
                                     <action selector="slide:" destination="BYZ-38-t0r" eventType="valueChanged" id="5Ii-FJ-ahl"/>
                                 </connections>
@@ -85,13 +87,20 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="MDr-EQ-wwL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="DXg-F2-nJ8"/>
+                            <constraint firstItem="mEV-X6-37Z" firstAttribute="top" secondItem="F8g-aN-bHU" secondAttribute="bottom" constant="50" id="4en-93-Oy8"/>
+                            <constraint firstItem="MDr-EQ-wwL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.6" id="DXg-F2-nJ8"/>
                             <constraint firstItem="MDr-EQ-wwL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FCU-ez-jxf"/>
+                            <constraint firstItem="F8g-aN-bHU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Nb2-C1-qC3"/>
+                            <constraint firstItem="F8g-aN-bHU" firstAttribute="top" secondItem="MDr-EQ-wwL" secondAttribute="bottom" constant="200" id="OPl-Ze-yGm"/>
+                            <constraint firstItem="mEV-X6-37Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64" id="gNX-W4-dR0"/>
+                            <constraint firstItem="F8g-aN-bHU" firstAttribute="centerX" secondItem="mEV-X6-37Z" secondAttribute="centerX" id="mVh-kS-15e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="animationView" destination="MDr-EQ-wwL" id="gzM-T3-NfH"/>
+                        <outlet property="button" destination="F8g-aN-bHU" id="Hlk-Qz-F6K"/>
+                        <outlet property="slider" destination="mEV-X6-37Z" id="2Oe-TZ-fDt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
