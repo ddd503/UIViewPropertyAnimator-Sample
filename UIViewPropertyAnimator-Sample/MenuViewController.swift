@@ -27,9 +27,12 @@ final class MenuViewController: UIViewController {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPathForSelectedRow, animated: true)
+        }
     }
 
 }
@@ -46,4 +49,11 @@ extension MenuViewController: UITableViewDataSource {
     }
 }
 
-extension MenuViewController: UITableViewDelegate {}
+extension MenuViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let animationVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AnimationViewController") as? AnimationViewController else {
+            return
+        }
+        navigationController?.pushViewController(animationVC, animated: true)
+    }
+}
