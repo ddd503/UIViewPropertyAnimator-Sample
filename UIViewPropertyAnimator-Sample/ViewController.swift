@@ -8,6 +8,17 @@
 
 import UIKit
 
+enum AnimationType {
+    case move
+    case bezierCurve
+    case spring
+    case reversed
+    case slider
+    case add
+    case addDelay
+    case addCompletion
+}
+
 final class ViewController: UIViewController {
 
     @IBOutlet weak var animationView: UIView!
@@ -23,7 +34,7 @@ final class ViewController: UIViewController {
     }
 
     @IBAction func slide(_ sender: UISlider) {
-
+        sliderで進行度をコントロールできる(float: sender.value)
     }
 
     private func setup() {
@@ -95,4 +106,27 @@ final class ViewController: UIViewController {
         animator.startAnimation()
     }
 
+    func 遅延実行するアニメーションを追加する() {
+        let entPointY = animationView.center.y + 200
+        let animator = UIViewPropertyAnimator(duration: 2.0, curve: .easeIn) {
+            self.animationView.center.y = entPointY
+        }
+        // アニメーションを追加（90%の時点で発火する遅延実行）
+        animator.addAnimations({
+            self.animationView.alpha = 0.0
+        }, delayFactor: 0.9)
+        animator.startAnimation()
+    }
+
+    func アニメーション完了後処理を追加する() {
+        let entPointY = animationView.center.y + 200
+        let animator = UIViewPropertyAnimator(duration: 2.0, curve: .easeIn) {
+            self.animationView.center.y = entPointY
+        }
+        // 完了後の処理を追加
+        animator.addCompletion { (_) in
+            self.animationView.center.y = self.animationView.center.y - 200
+        }
+        animator.startAnimation()
+    }
 }
