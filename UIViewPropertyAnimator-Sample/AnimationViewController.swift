@@ -50,10 +50,10 @@ final class AnimationViewController: UIViewController {
     }
 
     private func setup() {
+        self.title = currentAnimationType.rawValue
         button.isHidden = currentAnimationType == .slider
         slider.isHidden = currentAnimationType != .slider
         reverseButton.isHidden = currentAnimationType != .reversed
-
         basePostion = animationView.center
         setupAnimator()
     }
