@@ -51,9 +51,7 @@ extension MenuViewController: UITableViewDataSource {
 
 extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let animationVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AnimationViewController") as? AnimationViewController else {
-            return
-        }
+        let animationVC = AnimationViewController.make(type: AnimationType.allCases[indexPath.row])
         navigationController?.pushViewController(animationVC, animated: true)
     }
 }

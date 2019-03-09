@@ -11,14 +11,20 @@ import UIKit
 final class AnimationViewController: UIViewController {
 
     @IBOutlet weak var animationView: UIView!
-
     var animator: UIViewPropertyAnimator?
-
+    var basePostion: CGPoint = .zero
+    var currentAnimationType = AnimationType.move
     lazy var endPointY = {
         return self.animationView.center.y + 200
     }
 
-    var basePostion: CGPoint = .zero
+    class func make(type: AnimationType) -> AnimationViewController {
+        guard let animationVC = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AnimationViewController") as? AnimationViewController else {
+            fatalError()
+        }
+        animationVC.currentAnimationType = type
+        return animationVC
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
