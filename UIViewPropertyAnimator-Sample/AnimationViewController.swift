@@ -85,12 +85,12 @@ final class AnimationViewController: UIViewController {
     }
 
     private func reset() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration + 1.0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration + 2.0) { [weak self] in
             guard let self = self else { return }
             self.animationView.center = self.basePostion
             self.animationView.backgroundColor = .blue
             self.animationView.alpha = 1.0
-            self.animator?.isReversed = false
+            self.animator?.isReversed = true
         }
     }
 
