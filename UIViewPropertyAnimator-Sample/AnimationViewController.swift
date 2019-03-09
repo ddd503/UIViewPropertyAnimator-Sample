@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AnimationViewController.swift
 //  UIViewPropertyAnimator-Sample
 //
 //  Created by kawaharadai on 2019/03/07.
@@ -8,21 +8,17 @@
 
 import UIKit
 
-enum AnimationType {
-    case move
-    case bezierCurve
-    case spring
-    case reversed
-    case slider
-    case add
-    case addDelay
-    case addCompletion
-}
-
-final class ViewController: UIViewController {
+final class AnimationViewController: UIViewController {
 
     @IBOutlet weak var animationView: UIView!
+
     var animator: UIViewPropertyAnimator?
+
+    lazy var endPointY = {
+        return self.animationView.center.y + 200
+    }
+
+    var basePostion: CGPoint = .zero
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +34,13 @@ final class ViewController: UIViewController {
     }
 
     private func setup() {
+        basePostion = animationView.center
         setupAnimator()
     }
 
     private func setupAnimator() {
-        let entPointY = animationView.center.y + 200
         animator = UIViewPropertyAnimator(duration: 1.0, curve: .easeIn) {
-            self.animationView.center.y = entPointY
+            self.animationView.center.y = self.endPointY()
         }
     }
 
